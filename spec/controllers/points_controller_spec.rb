@@ -1,26 +1,41 @@
 require 'rails_helper'
 
-RSpec.describe PointsController, type: :controller do
+RSpec.describe Api::PointsController, type: :controller do
 
-  describe "GET #show" do
-    it "returns http success" do
-      get :show
-      expect(response).to have_http_status(:success)
+  # describe "GET #index" do
+  #   it "returns http success" do
+  #     get :index
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
+
+  describe "POST #create" do
+    it "create new point" do
+      post :create, params: attributes_for(:point_request)
+      expect(response).to have_http_status(:created)
+    end
+
+    it "empty lon" do
+      post :create, params: attributes_for(:point_request, :empty_lon_point)
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "empty lat" do
+      post :create, params: attributes_for(:point_request, :empty_lat_point)
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "empty direction" do
+      post :create, params: attributes_for(:point_request, :empty_direction_point)
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
-    end
-  end
+  # describe "DELETE #destroy" do
+  #   it "returns http success" do
+  #     get :destroy
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
 
 end

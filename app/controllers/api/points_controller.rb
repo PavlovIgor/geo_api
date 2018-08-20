@@ -1,20 +1,20 @@
 class Api::PointsController < ApplicationController
   def index
-    render json: { status: 200 }
+    render json: {}, status: 200
   end
 
   def create
     point = Point.new(PointPresenter.in(point_params))
 
     if point.save
-      render json: PointPresenter.out(point)
+      render json: PointPresenter.out(point), status: :created
     else
-      render json: { status: "error" }
+      render json: {}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    render json: { status: 200 }
+    render json: {}, status: 200
   end
 
 private
