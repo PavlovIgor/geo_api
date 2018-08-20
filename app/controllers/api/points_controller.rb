@@ -9,12 +9,18 @@ class Api::PointsController < ApplicationController
     if point.save
       render json: PointPresenter.out(point), status: :created
     else
-      render json: {}, status: :unprocessable_entity
+      render json: point.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    render json: {}, status: 200
+    point = Point.find(params[:id])
+    if point
+      point.destroy
+      render json: {}, status: :accepted
+    else
+      render json: {}, status: :not_found
+    end
   end
 
 private

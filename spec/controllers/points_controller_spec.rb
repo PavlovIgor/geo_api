@@ -31,11 +31,13 @@ RSpec.describe Api::PointsController, type: :controller do
     end
   end
 
-  # describe "DELETE #destroy" do
-  #   it "returns http success" do
-  #     get :destroy
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "DELETE #destroy" do
+    let!(:point) { create :point }
+
+    it "delete point" do
+      delete :destroy, params: { id: point.id }
+      expect(response).to have_http_status(:accepted)
+    end
+  end
 
 end
