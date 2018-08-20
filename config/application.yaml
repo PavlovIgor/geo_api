@@ -1,6 +1,0 @@
-DB_USERNAME: "admin"
-DB_PASSWORD: "password"
-
-DB_NAME_DEV: "roadar_api_dev"
-DB_NAME_TEST: "roadar_api_test"
-DB_NAME_PROD: "roadar_api_prod"
