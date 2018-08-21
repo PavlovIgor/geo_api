@@ -63,30 +63,35 @@ RSpec.describe Api::PointsController, type: :controller do
     it "create new point" do
       post :create, params: attributes_for(:point_request)
       expect(response).to have_http_status(:created)
+      expect(Point.all.count).to eq(1)
     end
 
     it "empty lon" do
       post :create, params: attributes_for(:point_request, :empty_lon_point)
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(Point.all.count).to eq(0)
     end
 
     it "empty lat" do
       post :create, params: attributes_for(:point_request, :empty_lat_point)
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(Point.all.count).to eq(0)
     end
 
     it "empty direction" do
       post :create, params: attributes_for(:point_request, :empty_direction_point)
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(Point.all.count).to eq(0)
     end
   end
 
   describe "DELETE #destroy" do
-    let!(:point) { create :point }
+    let(:point) { create :point }
 
     it "delete point" do
       delete :destroy, params: { id: point.id }
       expect(response).to have_http_status(:accepted)
+      expect(Point.all.count).to eq(0)
     end
   end
 
