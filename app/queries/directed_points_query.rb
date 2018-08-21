@@ -6,7 +6,7 @@ class DirectedPointsQuery
     @direction_difference = prepare_diraction
     @query = <<-SQL
       ST_Distance( lonlat, ST_POINT(:lon, :lat)::geography ) < :distance AND
-      degrees( ST_Azimuth( lonlat, ST_POINT(:lon, :lat)::geography ) )BETWEEN
+      degrees( ST_Azimuth( ST_POINT(:lon, :lat)::geography, lonlat ) ) BETWEEN
       :direction_0 AND :direction_1
     SQL
   end
